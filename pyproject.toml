@@ -1,13 +1,13 @@
 [project]
-name = "nalm"
+name = "swissknife"
 version = "0.1.0"
-description = "Add your description here"
+description = "Explain selected code in Zed as a one-sentence tooltip, using Claude Code"
 readme = "README.md"
 requires-python = ">=3.12"
 dependencies = []
 
 [project.scripts]
-nalm = "nalm:main"
+swissknife = "swissknife:main"
 
 [build-system]
 requires = ["uv_build>=0.12.15,<0.13.0"]

@@ -1,7 +1,6 @@
 import fcntl
 import json
 import os
-import re
 import shutil
 import subprocess
 import textwrap
@@ -25,16 +24,16 @@ def code_around(path: str, selected: str, row: int, col: int, n: int) -> str:
 
 
 def main() -> None:
-    lock = open(Path(os.environ.get("XDG_RUNTIME_DIR", "/tmp")) / "nalm.lock", "w")
+    lock = open(Path(os.environ.get("XDG_RUNTIME_DIR", "/tmp")) / "swissknife.lock", "w")
     try:
         fcntl.flock(lock, fcntl.LOCK_EX | fcntl.LOCK_NB)
     except BlockingIOError:
         return  # already running, ignore this call
 
     env = os.environ
-    use_system_prompt = env.get("NALM_SYSTEM_PROMPT", "0") == "1"  # replace Claude Code's own prompt
-    context_lines = int(env.get("NALM_CONTEXT_LINES", "0"))  # code sent up front, 0 = let Claude read
-    thinking = env.get("NALM_THINKING", "1") == "1"  # 0 turns extended thinking off
+    use_system_prompt = env.get("SWISSKNIFE_SYSTEM_PROMPT", "0") == "1"  # replace Claude Code's own prompt
+    context_lines = int(env.get("SWISSKNIFE_CONTEXT_LINES", "0"))  # code sent up front, 0 = let Claude read
+    thinking = env.get("SWISSKNIFE_THINKING", "1") == "1"  # 0 turns extended thinking off
 
     context = f"line {env['ROW']}, inside {env.get('SYMBOL') or 'no symbol'}"
     if context_lines:
